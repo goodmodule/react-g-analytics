@@ -1,0 +1,37 @@
+{
+	"name": "react-g-analytics",
+	"version": "0.0.1",
+	"description": "React google analytics with support for react-router",
+	"author": {
+		"name": "Zlatko Fedor",
+		"email": "zfedor@gmail.com",
+		"url": "http://www.cherrysro.com/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/seeden/react-g-analytics.git"
+	},
+	"keywords": [
+		"mongoose",
+		"storage"
+	],
+	"private": false,
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://www.opensource.org/licenses/MIT"
+		}
+	],
+	"main": "./lib/",
+	"engines": {
+		"node": ">= 0.10.0"
+	},
+	"scripts": {
+		"test": "node node_modules/gulp/bin/gulp.js test"
+	},
+	"dependencies": {
+		"react": "~0.12.2",
+	},
+	"devDependencies": {
+	}
+}
