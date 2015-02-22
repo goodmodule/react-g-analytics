@@ -1,6 +1,6 @@
 {
 	"name": "react-g-analytics",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "React google analytics with support for react-router",
 	"author": {
 		"name": "Zlatko Fedor",
@@ -13,7 +13,10 @@
 	},
 	"keywords": [
 		"react",
+		"react-component",
+		"react-router",
 		"analytics",
+		"google",
 		"google analytics"
 	],
 	"private": false,
