@@ -1,6 +1,6 @@
 {
 	"name": "react-g-analytics",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "React google analytics with support for react-router",
 	"author": {
 		"name": "Zlatko Fedor",
@@ -12,8 +12,9 @@
 		"url": "git://github.com/seeden/react-g-analytics.git"
 	},
 	"keywords": [
-		"mongoose",
-		"storage"
+		"react",
+		"analytics",
+		"google analytics"
 	],
 	"private": false,
 	"licenses": [
@@ -30,7 +31,10 @@
 		"test": "node node_modules/gulp/bin/gulp.js test"
 	},
 	"dependencies": {
-		"react": "~0.12.2",
+	},
+	"peerDependencies": {
+		"react": "0.12.x",
+		"react-router": "0.12.x"
 	},
 	"devDependencies": {
 	}

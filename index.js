@@ -89,5 +89,9 @@ var ReactGAnalytics = module.exports = React.createClass({
 		if(this.props.pageview) {
 			ReactGAnalytics.sendPageview(path);
 		}
+	},
+
+	render: function() {
+		return null;
 	}
 });
