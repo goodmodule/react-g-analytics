@@ -2,15 +2,11 @@ var React = require('react');
 var Router = require('react-router');
 
 var currentID = null;
-var scriptAdded = false;
-var latestPageUrl = null;
 
 function addScript(id) {
 	if(!id) {
 		throw new Error('Google analytics ID is undefined');
 	}
-
-	scriptAdded = true;
 
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -60,38 +56,56 @@ var ReactGAnalytics = module.exports = React.createClass({
 	},
 
 	propTypes: {
-		id: React.PropTypes.string,
+		id: React.PropTypes.string.isRequired,
 		displayfeatures: React.PropTypes.bool,
 		pageview: React.PropTypes.bool
 	},
 
 	getDefaultProps: function() {
     	return {
+    		displayfeatures: false,
 			pageview: false
 		};
 	},
 
-	componentWillMound: function() {
-		currentID = this.props.id || currentID;
-	},
-
 	componentDidMount: function() {
-		if(this.props.id && !ReactGAnalytics.isInitialized()) {
+		if(!ReactGAnalytics.isInitialized()) {
 			ReactGAnalytics.init(this.props.id);
 		}
+	},
 
-		var path = this.getPath();
-
-		console.log('componentDidMount', path);
-
-
-
-		if(this.props.pageview) {
-			ReactGAnalytics.sendPageview(path);
-		}
+	shouldComponentUpdate: function() {
+		return false;
 	},
 
 	render: function() {
 		return null;
 	}
 });
+
+var latestUrl = null;
+
+var Mixin = ReactGAnalytics.Mixin = {
+	notify: function() {
+		if(!this.getPath) {
+			throw new Error('Add mixin Router.State from module react-router or define method getPath.');
+		}
+
+		var path = this.getPath();
+		if(latestUrl === path) {
+			return;
+		}
+
+		latestUrl = path;
+
+		ReactGAnalytics.sendPageview(path);
+	},
+
+	componentDidMount: function() {
+		this.notify();
+	},
+
+	componentWillUnmount: function() {
+		this.notify();
+	}
+};
