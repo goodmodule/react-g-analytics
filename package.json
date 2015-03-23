@@ -1,6 +1,6 @@
 {
 	"name": "react-g-analytics",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"description": "React google analytics with support for react-router",
 	"author": {
 		"name": "Zlatko Fedor",
@@ -26,19 +26,26 @@
 			"url": "http://www.opensource.org/licenses/MIT"
 		}
 	],
-	"main": "./lib/",
+	"main": "./dist/index.js",
 	"engines": {
 		"node": ">= 0.10.0"
 	},
 	"scripts": {
-		"test": "node node_modules/gulp/bin/gulp.js test"
+		"test"  : "babel-node ./node_modules/gulp/bin/gulp.js test",
+		"build" : "node ./node_modules/gulp/bin/gulp.js build"
 	},
 	"dependencies": {
 	},
 	"peerDependencies": {
-		"react": "0.12.x",
-		"react-router": "0.12.x"
+		"react": "0.13.x",
+		"react-router": "0.13.x"
 	},
 	"devDependencies": {
+		"gulp": "~3.8.11",
+		"gulp-mocha": "~2.0.0",
+		"gulp-babel": "~4.0.0",
+		"gulp-util": "~3.0.4",
+		"should": "~5.0.1",
+		"babel": "~4.6.1"
 	}
 }

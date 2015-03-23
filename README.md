@@ -25,37 +25,18 @@ I needed google analytics working in combination with react-router.
 Application part (load google analytics script to your webpage on the client side). ReactGAnalytics has parameter ID (use your own ID)
 
 	var React = require('react');
-	var ReactGAnalytics = require('react-g-analytics');
+	var GoogleAnalytics = require('react-g-analytics');
 	var RouteHandler = require('react-router').RouteHandler;
 
 	var App = module.exports = React.createClass({
 		render: function() {
 			return (
 				<div id="application">
-					<ReactGAnalytics id="UA-*******-**" />
+					<GoogleAnalytics id="UA-*******-**" />
 					<RouteHandler />
 				</div>
 			);
 		}
-	});
-
-
-### index.jsx
-
-Add mixin to your Route Handlers. You need to add Router.State too because it will provide required method named getPath to ReactGAnalyticsMixin
-
-	var React = require('react');
-	var Router = require('react-router');
-	var ReactGAnalyticsMixin = require('react-g-analytics').Mixin;
-	
-	var Index = module.exports = React.createClass({
-		mixins: [Router.State, ReactGAnalyticsMixin],
-
-	    render: function() {
-	        return (
-	            <h1>Content of the index</h1>
-	        );
-	    }
 	});
 
 
