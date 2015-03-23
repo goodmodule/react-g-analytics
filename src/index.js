@@ -1,6 +1,4 @@
-'use strict';
+import GAInitComponent from './gainitcomponent';
+import GANotifyComponent from './ganotifycomponent';
 
-var ReactGAnalytics = require('./reactga');
-ReactGAnalytics.Mixin = require('./mixin');
-
-module.exports = ReactGAnalytics;
+export { GAInitComponent, GANotifyComponent }; 
