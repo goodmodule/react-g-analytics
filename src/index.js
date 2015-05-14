@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 
-var currentID = null;
-var latestUrl = null;
+var isInitialized = false;
 
 function addScript(id) {
 	if(!id) {
 		throw new Error('Google analytics ID is undefined');
 	}
+
+	if(isInitialized) {
+		throw new Error('Google analytics is already initialized');
+	}
+
+	isInitialized = true;
 
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -16,25 +21,31 @@ function addScript(id) {
 	window.ga('create', id, 'auto');
 }
 
-export default class GoogleAnalyticsComponent extends Component {
-	getDefaultProps() {
-		return {
-			displayfeatures: false,
-			pageview: false
+export default class GoogleAnalytics extends Component {
+	constructor(props, context) {
+		super(props, context);
+
+		this.state = {
+			isClientReady: false
 		};
 	}
 
 	componentDidMount() {
-		if(!GoogleAnalyticsComponent.isInitialized()) {
-			GoogleAnalyticsComponent.init(this.props.id);
-		}
+		GoogleAnalytics.init(this.props.id);
+
+		this.setState({
+			isClientReady: true
+		});
 	}
 
-	shouldComponentUpdate() {
+	shouldComponentUpdate(props, state) {
+		if(state.isClientReady) {
+			this.pageview();
+		}
 		return false;
 	}
 
-	render() {
+	render() {	
 		return null;
 	}
 
@@ -43,39 +54,24 @@ export default class GoogleAnalyticsComponent extends Component {
 			throw new Error('Router is not presented in the component context.');
 		}
 
-		var path = this.context.router.getPath();
-		if(latestUrl === path) {
+		const path = this.context.router.getCurrentPath();
+		if(this.latestUrl === path) {
 			return;
 		}
 
-		latestUrl = path;
+		this.latestUrl = path;
 
-		GoogleAnalyticsComponent.sendPageview(path);
+		GoogleAnalytics.sendPageview(path);
 	}
 
 	static init(id) {
-		if(!id) {
-			throw new Error('Google analytics ID is undefined');
+		if(!isInitialized) {
+			addScript(id);
 		}
-
-		if(GoogleAnalyticsComponent.isInitialized()) {
-			throw new Error('Google analytics is already initialized');
-		}
-
-		currentID = id;
-		addScript(currentID);
-	}
-
-	static isInitialized() {
-		return !!GoogleAnalyticsComponent.getID();
-	}
-
-	static getID() {
-		return currentID;
 	}
 
 	static send(what, options) {
-		if(!GoogleAnalyticsComponent.isInitialized()) {
+		if(!isInitialized) {
 			throw new Error('Google analytics is not initialized');
 		}
 
@@ -85,15 +81,24 @@ export default class GoogleAnalyticsComponent extends Component {
 	static sendPageview(relativeUrl, title) {
 		title = title || relativeUrl;
 
-		return GoogleAnalyticsComponent.send('pageview', {
+		return GoogleAnalytics.send('pageview', {
 			'page': relativeUrl,
 			'title': title
 		});
 	}
 };
 
-GoogleAnalyticsComponent.propTypes = {
+GoogleAnalytics.propTypes = {
 	id              : React.PropTypes.string.isRequired,
 	displayfeatures : React.PropTypes.bool,
 	pageview        : React.PropTypes.bool
+};
+
+GoogleAnalytics.defaultProps = {
+	displayfeatures: false,
+	pageview: false
+};
+
+GoogleAnalytics.contextTypes = {
+	router: React.PropTypes.func.isRequired
 };

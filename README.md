@@ -1,79 +1,80 @@
 # React Google Analytics
 
-React GA contains two parts. First one is an initialisation part (react component) which will load google analytics script on the client side. Second is mixin for RouterHandler, which will notify google when you will change your current url.
-
-
 ## Motivation
 
 I needed google analytics working in combination with react-router.
 
 
 ## Install
-
-	$ npm install react-g-analytics
+```sh
+npm install react-g-analytics
+```
 
 ## Features
 
  * Automatically load google analytics scripts (React component)
- * Automatically send pageview when user will change current route of react-router (React Mixin)
+ * Automatically send pageview when user will change current route of react-router
 
 
 ## Usage
 
 ### app.jsx
 
-Application part (load google analytics script to your webpage on the client side). ReactGAnalytics has parameter ID (use your own ID)
+Application part (load google analytics script to your webpage on the client side). 
+ReactGAnalytics has parameter ID (use your own ID)
 
-	var React = require('react');
-	var GoogleAnalytics = require('react-g-analytics');
-	var RouteHandler = require('react-router').RouteHandler;
+```js
+var React = require('react');
+var GoogleAnalytics = require('react-g-analytics');
+var RouteHandler = require('react-router').RouteHandler;
 
-	var App = module.exports = React.createClass({
-		render: function() {
-			return (
-				<div id="application">
-					<GoogleAnalytics id="UA-*******-**" />
-					<RouteHandler />
-				</div>
-			);
-		}
-	});
-
+var App = module.exports = React.createClass({
+	render: function() {
+		return (
+			<div id="application">
+				<GoogleAnalytics id="UA-*******-**" />
+				<RouteHandler />
+			</div>
+		);
+	}
+});
+```
 
 ### routes.jsx
 
 Define your routes here.
 
-	var React = require('react');
-	var Router = require('react-router');
-	var Route = Router.Route;
-	var DefaultRoute = Router.DefaultRoute;
-	var Index = require('./index.jsx');
+```js
+var React = require('react');
+var Router = require('react-router');
+var Route = Router.Route;
+var DefaultRoute = Router.DefaultRoute;
+var Index = require('./index.jsx');
 
-	var routes = module.exports = (
-		<Route name="index">
-			<DefaultRoute handler={Index} />
-		</Route>
-	);
-
+var routes = module.exports = (
+	<Route name="index">
+		<DefaultRoute handler={Index} />
+	</Route>
+);
+```
 
 ### client.js
 
 Here is a simple client side 
 
+```js
+var React = require('react');
+var app = require('./app.jsx');
+var routes = require('./routes.jsx');
 
-	var React = require('react');
-	var app = require('./app.jsx');
-	var routes = require('./routes.jsx');
+var router = Router.create({
+	routes: routes
+});
 
-	var router = Router.create({
-		routes: routes
-	});
-
-	router.run(function(Handler, state) {
-		React.render(React.createElement(Handler, {}), node);
-	});
-
+router.run(function(Handler, state) {
+	React.render(React.createElement(Handler, {}), node);
+});
+```
 		
 ## Credits
 
