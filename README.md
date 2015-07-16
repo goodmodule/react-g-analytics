@@ -18,7 +18,7 @@ npm install react-g-analytics
 
 ## Usage
 
-### app.jsx
+### App.jsx
 
 Application part (load google analytics script to your webpage on the client side). 
 ReactGAnalytics has parameter ID (use your own ID)
@@ -29,14 +29,14 @@ var GoogleAnalytics = require('react-g-analytics');
 var RouteHandler = require('react-router').RouteHandler;
 
 var App = module.exports = React.createClass({
-	render: function() {
-		return (
-			<div id="application">
-				<GoogleAnalytics id="UA-*******-**" />
-				<RouteHandler />
-			</div>
-		);
-	}
+  render: function() {
+    return (
+      <div id="application">
+        <GoogleAnalytics id="UA-*******-**" />
+        <RouteHandler />
+      </div>
+    );
+  }
 });
 ```
 
@@ -49,12 +49,13 @@ var React = require('react');
 var Router = require('react-router');
 var Route = Router.Route;
 var DefaultRoute = Router.DefaultRoute;
-var Index = require('./index.jsx');
+var Index = require('./Index.jsx');
+var App = require('./App.jsx');
 
 var routes = module.exports = (
-	<Route name="index">
-		<DefaultRoute handler={Index} />
-	</Route>
+  <Route handler={App} name="index" path="/">
+    <DefaultRoute handler={Index} />
+  </Route>
 );
 ```
 
@@ -64,15 +65,15 @@ Here is a simple client side
 
 ```js
 var React = require('react');
-var app = require('./app.jsx');
+var app = require('./App.jsx');
 var routes = require('./routes.jsx');
 
 var router = Router.create({
-	routes: routes
+  routes: routes
 });
 
 router.run(function(Handler, state) {
-	React.render(React.createElement(Handler, {}), node);
+  React.render(React.createElement(Handler, {}), node);
 });
 ```
 		
