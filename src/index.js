@@ -80,7 +80,7 @@ export default class GoogleAnalytics extends Component {
     return GoogleAnalytics.command('send', what, options);
   }
 
-  static sendPageview(path, title = path) {
+  static sendPageview(page, title = page) {
     return GoogleAnalytics.send('pageview', { page, title });
   }
 }

@@ -112,8 +112,8 @@ var GoogleAnalytics = (function (_Component) {
     }
   }, {
     key: 'sendPageview',
-    value: function sendPageview(path) {
-      var title = arguments.length <= 1 || arguments[1] === undefined ? path : arguments[1];
+    value: function sendPageview(page) {
+      var title = arguments.length <= 1 || arguments[1] === undefined ? page : arguments[1];
       return (function () {
         return GoogleAnalytics.send('pageview', { page: page, title: title });
       })();
