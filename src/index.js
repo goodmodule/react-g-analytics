@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 
-let ga = null;
-
 function initGoogleAnalytics(id) {
-  if (ga) {
+  if (window.ga) {
     return;
   }
 
@@ -11,14 +9,19 @@ function initGoogleAnalytics(id) {
     throw new Error('Google analytics ID is undefined');
   }
 
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  window.ga = window.ga || function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 
-  ga = window.ga;
+  (function() {
+    const gads = document.createElement('script');
+    gads.async = true;
+    gads.type = 'text/javascript';
+    gads.src = '//www.google-analytics.com/analytics.js';
 
-  ga('create', id, 'auto');
+    const head = document.getElementsByTagName('head')[0];
+    head.appendChild(gads);
+  })();
+
+  window.ga('create', id, 'auto');
 }
 
 export default class GoogleAnalytics extends Component {
@@ -58,7 +61,7 @@ export default class GoogleAnalytics extends Component {
 
     this.latestUrl = path;
 
-    GoogleAnalytics.sendPageview(path);
+    GoogleAnalytics.sendPageview(path, document.title);
   }
 
   render() {
@@ -66,21 +69,18 @@ export default class GoogleAnalytics extends Component {
   }
 
   static command(...args) {
-    if (!ga) {
+    if (!window.ga) {
       throw new Error('Google analytics is not initialized');
     }
 
-    return ga.apply(ga, args);
+    return window.ga.apply(window.ga, args);
   }
 
   static send(what, options) {
     return GoogleAnalytics.command('send', what, options);
   }
 
-  static sendPageview(relativeUrl, title = relativeUrl) {
-    return GoogleAnalytics.send('pageview', {
-      page: relativeUrl,
-      title: title
-    });
+  static sendPageview(path, title = path) {
+    return GoogleAnalytics.send('pageview', { page, title });
   }
 }
