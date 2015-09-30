@@ -1,140 +1,138 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var _react = require("react");
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var React = _interopRequire(_react);
+var _react = require('react');
 
-var Component = _react.Component;
+var _react2 = _interopRequireDefault(_react);
 
-var isInitialized = false;
+var ga = null;
 
-function addScript(id) {
-	if (!id) {
-		throw new Error("Google analytics ID is undefined");
-	}
+function initGoogleAnalytics(id) {
+  if (ga) {
+    return;
+  }
 
-	if (isInitialized) {
-		throw new Error("Google analytics is already initialized");
-	}
+  if (!id) {
+    throw new Error('Google analytics ID is undefined');
+  }
 
-	isInitialized = true;
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments);
+    }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-	(function (i, s, o, g, r, a, m) {
-		i.GoogleAnalyticsObject = r;i[r] = i[r] || function () {
-			(i[r].q = i[r].q || []).push(arguments);
-		}, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
-	})(window, document, "script", "//www.google-analytics.com/analytics.js", "ga");
+  ga = window.ga;
 
-	window.ga("create", id, "auto");
+  ga('create', id, 'auto');
 }
 
 var GoogleAnalytics = (function (_Component) {
-	function GoogleAnalytics(props, context) {
-		_classCallCheck(this, GoogleAnalytics);
+  _inherits(GoogleAnalytics, _Component);
 
-		_get(Object.getPrototypeOf(GoogleAnalytics.prototype), "constructor", this).call(this, props, context);
+  function GoogleAnalytics() {
+    _classCallCheck(this, GoogleAnalytics);
 
-		this.state = {
-			isClientReady: false
-		};
-	}
+    _get(Object.getPrototypeOf(GoogleAnalytics.prototype), 'constructor', this).apply(this, arguments);
+  }
 
-	_inherits(GoogleAnalytics, _Component);
+  _createClass(GoogleAnalytics, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      initGoogleAnalytics(this.props.id);
 
-	_createClass(GoogleAnalytics, {
-		componentDidMount: {
-			value: function componentDidMount() {
-				GoogleAnalytics.init(this.props.id);
+      this.setState({
+        isReady: true
+      });
+    }
+  }, {
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(props, state) {
+      if (state.isReady) {
+        this.pageview();
+      }
 
-				this.setState({
-					isClientReady: true
-				});
-			}
-		},
-		shouldComponentUpdate: {
-			value: function shouldComponentUpdate(props, state) {
-				if (state.isClientReady) {
-					this.pageview();
-				}
-				return false;
-			}
-		},
-		render: {
-			value: function render() {
-				return null;
-			}
-		},
-		pageview: {
-			value: function pageview() {
-				if (!this.context.router) {
-					throw new Error("Router is not presented in the component context.");
-				}
+      return false;
+    }
+  }, {
+    key: 'pageview',
+    value: function pageview() {
+      if (!this.context.router) {
+        throw new Error('Router is not presented in the component context.');
+      }
 
-				var path = this.context.router.getCurrentPath();
-				if (this.latestUrl === path) {
-					return;
-				}
+      var path = this.context.router.getCurrentPath();
+      if (this.latestUrl === path) {
+        return;
+      }
 
-				this.latestUrl = path;
+      this.latestUrl = path;
 
-				GoogleAnalytics.sendPageview(path);
-			}
-		}
-	}, {
-		init: {
-			value: function init(id) {
-				if (!isInitialized) {
-					addScript(id);
-				}
-			}
-		},
-		send: {
-			value: function send(what, options) {
-				if (!isInitialized) {
-					throw new Error("Google analytics is not initialized");
-				}
+      GoogleAnalytics.sendPageview(path);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return null;
+    }
+  }], [{
+    key: 'command',
+    value: function command() {
+      if (!ga) {
+        throw new Error('Google analytics is not initialized');
+      }
 
-				window.ga("send", what, options);
-			}
-		},
-		sendPageview: {
-			value: function sendPageview(relativeUrl, title) {
-				title = title || relativeUrl;
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
 
-				return GoogleAnalytics.send("pageview", {
-					page: relativeUrl,
-					title: title
-				});
-			}
-		}
-	});
+      return ga.apply(ga, args);
+    }
+  }, {
+    key: 'send',
+    value: function send(what, options) {
+      return GoogleAnalytics.command('send', what, options);
+    }
+  }, {
+    key: 'sendPageview',
+    value: function sendPageview(relativeUrl) {
+      var title = arguments.length <= 1 || arguments[1] === undefined ? relativeUrl : arguments[1];
+      return (function () {
+        return GoogleAnalytics.send('pageview', {
+          page: relativeUrl,
+          title: title
+        });
+      })();
+    }
+  }, {
+    key: 'propTypes',
+    value: {
+      id: _react2['default'].PropTypes.string.isRequired
+    },
+    enumerable: true
+  }, {
+    key: 'contextTypes',
+    value: {
+      router: _react2['default'].PropTypes.func.isRequired
+    },
+    enumerable: true
+  }]);
 
-	return GoogleAnalytics;
-})(Component);
+  return GoogleAnalytics;
+})(_react.Component);
 
-module.exports = GoogleAnalytics;
-
-GoogleAnalytics.propTypes = {
-	id: React.PropTypes.string.isRequired,
-	displayfeatures: React.PropTypes.bool,
-	pageview: React.PropTypes.bool
-};
-
-GoogleAnalytics.defaultProps = {
-	displayfeatures: false,
-	pageview: false
-};
-
-GoogleAnalytics.contextTypes = {
-	router: React.PropTypes.func.isRequired
-};
+exports['default'] = GoogleAnalytics;
+module.exports = exports['default'];
