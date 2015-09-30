@@ -85,7 +85,10 @@ var GoogleAnalytics = (function (_Component) {
 
       this.latestUrl = path;
 
-      GoogleAnalytics.sendPageview(path, document.title);
+      //wait for correct title
+      setTimeout(function () {
+        GoogleAnalytics.sendPageview(path, document.title);
+      }, 0);
     }
   }, {
     key: 'render',
