@@ -1,6 +1,6 @@
 {
   "name": "react-g-analytics",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "React google analytics with support for react-router",
   "author": {
     "name": "Zlatko Fedor",
@@ -31,8 +31,8 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "0.13.x||0.14.x",
-    "react-router": "0.13.x||1.0.0-rc3"
+    "react": "0.14.x",
+    "react-router": "1.0.0-rc3"
   },
   "devDependencies": {
     "gulp": "~3.9.0",
