@@ -88,10 +88,6 @@ var GoogleAnalytics = (function (_Component) {
     value: function pageview() {
       var location = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-      if (!this.context.router) {
-        throw new Error('Router is not presented in the component context.');
-      }
-
       var path = location.pathname + location.search;
       if (this.latestUrl === path) {
         return;

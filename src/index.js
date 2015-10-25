@@ -59,10 +59,6 @@ export default class GoogleAnalytics extends Component {
   }
 
   pageview(location = {}) {
-    if (!this.context.router) {
-      throw new Error('Router is not presented in the component context.');
-    }
-
     const path = location.pathname + location.search;
     if (this.latestUrl === path) {
       return;
