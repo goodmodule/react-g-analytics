@@ -92,7 +92,7 @@ var GoogleAnalytics = (function (_Component) {
         throw new Error('Router is not presented in the component context.');
       }
 
-      var path = location.path + location.search;
+      var path = location.pathname + location.search;
       if (this.latestUrl === path) {
         return;
       }
