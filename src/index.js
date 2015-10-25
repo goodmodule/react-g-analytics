@@ -30,31 +30,40 @@ export default class GoogleAnalytics extends Component {
   };
 
   static contextTypes = {
-    router: React.PropTypes.func.isRequired
+    history: React.PropTypes.object.isRequired
   };
 
   componentDidMount() {
     initGoogleAnalytics(this.props.id);
 
-    this.setState({
-      isReady: true
+    this.historyListener = this.context.history.listen((err, renderProps) => {
+      if (err || !renderProps) {
+        return;
+      }
+
+      this.pageview(renderProps.location);
     });
   }
 
-  shouldComponentUpdate(props, state) {
-    if (state.isReady) {
-      this.pageview();
+  componentWillUnmount() {
+    if (!this.historyListener) {
+      return;
     }
 
+    this.historyListener();
+    this.historyListener = null;
+  }
+
+  shouldComponentUpdate() {
     return false;
   }
 
-  pageview() {
+  pageview(location = {}) {
     if (!this.context.router) {
       throw new Error('Router is not presented in the component context.');
     }
 
-    const path = this.context.router.getCurrentPath();
+    const path = location.path + location.search;
     if (this.latestUrl === path) {
       return;
     }
