@@ -9,9 +9,9 @@ function initGoogleAnalytics(id) {
     throw new Error('Google analytics ID is undefined');
   }
 
-  window.ga = window.ga || function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+  window.ga = window.ga || function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; // eslint-disable-line
 
-  (function() {
+  (function loadScript() {
     const gads = document.createElement('script');
     gads.async = true;
     gads.type = 'text/javascript';
@@ -26,11 +26,11 @@ function initGoogleAnalytics(id) {
 
 export default class GoogleAnalytics extends Component {
   static propTypes = {
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.string.isRequired,
   };
 
   static contextTypes = {
-    history: React.PropTypes.object.isRequired
+    history: React.PropTypes.object.isRequired,
   };
 
   componentDidMount() {
@@ -45,6 +45,10 @@ export default class GoogleAnalytics extends Component {
     });
   }
 
+  shouldComponentUpdate() {
+    return false;
+  }
+
   componentWillUnmount() {
     if (!this.historyListener) {
       return;
@@ -52,10 +56,6 @@ export default class GoogleAnalytics extends Component {
 
     this.historyListener();
     this.historyListener = null;
-  }
-
-  shouldComponentUpdate() {
-    return false;
   }
 
   pageview(location = {}) {
@@ -66,14 +66,10 @@ export default class GoogleAnalytics extends Component {
 
     this.latestUrl = path;
 
-    //wait for correct title
-    setTimeout(function() {
+    // wait for correct title
+    setTimeout(function wait() {
       GoogleAnalytics.sendPageview(path, document.title);
     }, 0);
-  }
-
-  render() {
-    return null;
   }
 
   static command(...args) {
@@ -90,5 +86,9 @@ export default class GoogleAnalytics extends Component {
 
   static sendPageview(page, title = page) {
     return GoogleAnalytics.send('pageview', { page, title });
+  }
+
+  render() {
+    return null;
   }
 }
