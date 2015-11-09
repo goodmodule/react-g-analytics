@@ -34,7 +34,7 @@
   "dependencies": {},
   "peerDependencies": {
     "react": "0.14.x",
-    "react-router": "1.0.0-rc3||1.0.0-rc4"
+    "react-router": "^1.0.0"
   },
   "devDependencies": {
     "babel": "^5.8.26",
