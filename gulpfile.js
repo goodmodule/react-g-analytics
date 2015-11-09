@@ -11,7 +11,7 @@ gulp.task('test', function () {
 });
 
 gulp.task('build', function (callback) {
-  return gulp.src('./src/**/*.js')
+  return gulp.src('./src/**/*.{js,jsx}')
     .pipe(babel({
       stage: 0
     }))
