@@ -1,23 +1,25 @@
-var gulp = require('gulp');
-var mocha = require('gulp-mocha');
-var babel = require('gulp-babel');
+import gulp from 'gulp';
+import mocha from 'gulp-mocha';
+import babel from 'gulp-babel';
 
-gulp.task('test', function () {
+const babelConfig = {
+  stage: 0,
+};
+
+gulp.task('test', () => {
   return gulp.src('./tests/**/*.js')
-  .pipe(babel())
+  .pipe(babel(babelConfig))
   .pipe(mocha({
-    timeout: 20000
+    timeout: 20000,
   }));
 });
 
-gulp.task('build', function (callback) {
+gulp.task('build', () => {
   return gulp.src('./src/**/*.{js,jsx}')
-    .pipe(babel({
-      stage: 0
-    }))
-    .pipe(gulp.dest("./dist"));
+    .pipe(babel(babelConfig))
+    .pipe(gulp.dest('./dist'));
 });
 
-gulp.doneCallback = function (err) {
+gulp.doneCallback = (err) => {
   process.exit(err ? 1 : 0);
 };
