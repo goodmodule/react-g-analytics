@@ -22,6 +22,7 @@ function initGoogleAnalytics(id) {
   })();
 
   window.ga('create', id, 'auto');
+  window.ga('set', 'anonymizeIp', true);
 }
 
 export default class GoogleAnalytics extends Component {
