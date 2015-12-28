@@ -12,7 +12,7 @@ npm install react-g-analytics
 
 ## Features
 
- * Automatically load google analytics scripts (React component)
+ * Automatically load google analytics scripts (optional - id parameter)
  * Automatically send pageview when user will change current route of react-router
 
 
@@ -20,7 +20,7 @@ npm install react-g-analytics
 
 ### App.jsx
 
-Application part (load google analytics script to your webpage on the client side). 
+Application part (load google analytics script to your webpage on the client side).
 ReactGAnalytics has parameter ID (use your own ID)
 
 ```js
@@ -61,7 +61,7 @@ var routes = module.exports = (
 
 ### client.js
 
-Here is a simple client side 
+Here is a simple client side
 
 ```js
 var React = require('react');
@@ -76,7 +76,43 @@ router.run(function(Handler, state) {
   React.render(React.createElement(Handler, {}), node);
 });
 ```
-		
+
+## Set
+
+If you want to set google analytics parameters after load you can use property named set. Here is small example:
+
+```js
+var React = require('react');
+var GoogleAnalytics = require('react-g-analytics');
+var RouteHandler = require('react-router').RouteHandler;
+
+var set = {
+  anonymizeIp: true
+};
+
+var App = module.exports = React.createClass({
+  render: function() {
+    return (
+      <div id="application">
+        <GoogleAnalytics id="UA-*******-**" set={set} />
+        <RouteHandler />
+      </div>
+    );
+  }
+});
+```
+
+## Skip loading google analytics scripts
+
+If you are loading the GA in different way. You can skip autoload of the GA script simply:
+Do not enter your google analytics ID as parameter.
+
+## Try our other React components
+
+ - Translate your great project [react-translate-maker](https://github.com/CherrySoftware/react-translate-maker)
+ - Google AdSense via Google Publisher Tag [react-google-publisher-tag](https://github.com/seeden/react-google-publisher-tag)
+
+
 ## Credits
 
 [Zlatko Fedor](http://github.com/seeden)

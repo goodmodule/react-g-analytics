@@ -1,6 +1,6 @@
 {
   "name": "react-g-analytics",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "React google analytics with support for react-router",
   "author": {
     "name": "Zlatko Fedor",
@@ -31,12 +31,14 @@
     "build": "babel-node ./node_modules/gulp/bin/gulp.js build",
     "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js,.jsx ."
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^3.10.1"
+  },
   "devDependencies": {
     "babel": "^5.8.34",
     "babel-eslint": "^4.1.5",
     "eslint": "^1.10.1",
-    "eslint-config-airbnb": "^1.0.0",
+    "eslint-config-airbnb": "^0.1.1",
     "eslint-loader": "^1.1.1",
     "eslint-plugin-react": "^3.10.0",
     "gulp": "^3.9.0",

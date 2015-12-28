@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import keys from 'lodash/object/keys';
 
-function initGoogleAnalytics(id) {
-  if (window.ga) {
+function initGoogleAnalytics(id, set = {}) {
+  if (window.ga || !id) {
     return;
-  }
-
-  if (!id) {
-    throw new Error('Google analytics ID is undefined');
   }
 
   window.ga = window.ga || function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; // eslint-disable-line
@@ -22,19 +19,26 @@ function initGoogleAnalytics(id) {
   })();
 
   window.ga('create', id, 'auto');
+
+  keys(set).forEach((key) => {
+    const value = set[key];
+
+    window.ga('set', key, value);
+  });
 }
 
 export default class GoogleAnalytics extends Component {
   static propTypes = {
-    id: React.PropTypes.string.isRequired,
+    id: PropTypes.string,
+    set: PropTypes.object,
   };
 
   static contextTypes = {
-    history: React.PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   };
 
   componentDidMount() {
-    initGoogleAnalytics(this.props.id);
+    initGoogleAnalytics(this.props.id, this.props.set);
 
     this.historyListener = this.context.history.listen((err, renderProps) => {
       if (err || !renderProps) {
@@ -67,7 +71,7 @@ export default class GoogleAnalytics extends Component {
     this.latestUrl = path;
 
     // wait for correct title
-    setTimeout(function wait() {
+    setTimeout(() => {
       GoogleAnalytics.sendPageview(path, document.title);
     }, 0);
   }
