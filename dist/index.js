@@ -68,12 +68,12 @@ var GoogleAnalytics = (function (_Component) {
 
       initGoogleAnalytics(this.props.id, this.props.set);
 
-      this.historyListener = this.context.history.listen(function (err, renderProps) {
-        if (err || !renderProps) {
+      this.historyListener = this.context.router.listen(function (location) {
+        if (!location) {
           return;
         }
 
-        _this.pageview(renderProps.location);
+        _this.pageview(location);
       });
     }
   }, {
@@ -149,7 +149,7 @@ var GoogleAnalytics = (function (_Component) {
   }, {
     key: 'contextTypes',
     value: {
-      history: _react.PropTypes.object.isRequired
+      router: _react.PropTypes.object.isRequired
     },
     enumerable: true
   }]);
