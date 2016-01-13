@@ -34,18 +34,18 @@ export default class GoogleAnalytics extends Component {
   };
 
   static contextTypes = {
-    history: PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
   };
 
   componentDidMount() {
     initGoogleAnalytics(this.props.id, this.props.set);
 
-    this.historyListener = this.context.history.listen((err, renderProps) => {
-      if (err || !renderProps) {
+    this.historyListener = this.context.router.listen((location) => {
+      if (!location) {
         return;
       }
 
-      this.pageview(renderProps.location);
+      this.pageview(location);
     });
   }
 
