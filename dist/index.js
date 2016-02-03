@@ -149,3 +149,4 @@ GoogleAnalytics.contextTypes = {
   router: _react.PropTypes.object.isRequired
 };
 exports.default = GoogleAnalytics;
+module.exports = exports['default'];

@@ -1,6 +1,6 @@
 {
   "name": "react-g-analytics",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "React google analytics with support for react-router",
   "author": {
     "name": "Zlatko Fedor",
@@ -44,6 +44,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "babel-preset-stage-1": "^6.3.13",
+    "babel-plugin-add-module-exports": "^0.1.2",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^0.1.1",
     "eslint-loader": "^1.2.1",
