@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import keys from 'lodash/object/keys';
+import forOwn from 'lodash/object/forOwn';
 
 function initGoogleAnalytics(id, set = {}) {
   if (window.ga || !id) {
@@ -20,9 +20,7 @@ function initGoogleAnalytics(id, set = {}) {
 
   window.ga('create', id, 'auto');
 
-  keys(set).forEach((key) => {
-    const value = set[key];
-
+  forOwn(set, (value, key) => {
     window.ga('set', key, value);
   });
 }

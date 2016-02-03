@@ -2,13 +2,9 @@ import gulp from 'gulp';
 import mocha from 'gulp-mocha';
 import babel from 'gulp-babel';
 
-const babelConfig = {
-  stage: 0,
-};
-
 gulp.task('test', () => {
   return gulp.src('./tests/**/*.js')
-  .pipe(babel(babelConfig))
+  .pipe(babel())
   .pipe(mocha({
     timeout: 20000,
   }));
@@ -16,7 +12,7 @@ gulp.task('test', () => {
 
 gulp.task('build', () => {
   return gulp.src('./src/**/*.{js,jsx}')
-    .pipe(babel(babelConfig))
+    .pipe(babel())
     .pipe(gulp.dest('./dist'));
 });
 

@@ -1,9 +1,14 @@
 # React Google Analytics
 
+[![NPM version][npm-image]][npm-url]
+
+[npm-image]: https://img.shields.io/npm/v/react-g-analytics.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/react-g-analytics
+[github-url]: https://github.com/seeden/react-g-analytics
+
 ## Motivation
 
 I needed google analytics working in combination with react-router.
-
 
 ## Install
 ```sh
@@ -15,6 +20,13 @@ npm install react-g-analytics
  * Automatically load google analytics scripts (optional - id parameter)
  * Automatically send pageview when user will change current route of react-router
 
+# Support us
+
+Star this project on [GitHub][github-url].
+
+## Notice
+
+Use version 2.x of the react-g-analytics if you want to use it with react-router 2.x
 
 ## Usage
 
@@ -110,8 +122,12 @@ Do not enter your google analytics ID as parameter.
 ## Try our other React components
 
  - Translate your great project [react-translate-maker](https://github.com/CherrySoftware/react-translate-maker)
+ - Forms [react-form-controlled](https://github.com/seeden/react-form-controlled)
  - Google AdSense via Google Publisher Tag [react-google-publisher-tag](https://github.com/seeden/react-google-publisher-tag)
 
+# Support us
+
+Star this project on [GitHub][github-url].
 
 ## Credits
 
