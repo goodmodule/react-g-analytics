@@ -56,11 +56,11 @@
     "should": "^8.2.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-router": "^2.0.0-rc5",
-    "history": "^2.0.0-rc2"
+    "react-router": "^2.0.0",
+    "history": "^2.0.0"
   },
   "peerDependencies": {
     "react": "0.14.x",
-    "react-router": "^2.0.0-rc5"
+    "react-router": "^2.0.x"
   }
 }
