@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import forOwn from 'lodash/object/forOwn';
+import forOwn from 'lodash/forOwn';
 
 function initGoogleAnalytics(id, set = {}) {
   if (window.ga || !id) {
