@@ -31,6 +31,26 @@ Use version 0.2.x of the react-g-analytics if you want to use it with react-rout
 
 ## Usage
 
+### Example react-router 4.x
+
+User BrowserRouter from react-g-analytics instead of react-router.
+
+```js
+import { BrowserRouter } from 'react-g-analytics';
+
+export default function MyComponent() {
+  return (
+    <BrowserRouter id="UA-*******-**">
+      ... your application
+    <BrowserRouter>
+  );
+}
+
+>
+```
+
+### Example react-router 3.x and bellow
+
 ### App.jsx
 
 Application part (load google analytics script to your webpage on the client side).

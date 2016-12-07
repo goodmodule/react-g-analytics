@@ -88,15 +88,18 @@ export default class GoogleAnalytics extends Component {
 
     this.latestUrl = path;
 
-    GoogleAnalytics.set({
-      page: path,
-      title: document.title,
-      location: document.location,
-    });
+    // user can change the title
+    setTimeout(() => {
+      GoogleAnalytics.set({
+        page: path,
+        title: document.title,
+        location: document.location,
+      });
 
-    GoogleAnalytics.send({
-      hitType: 'pageview',
-    });
+      GoogleAnalytics.send({
+        hitType: 'pageview',
+      });
+    }, 0);
   }
 
   render() {
