@@ -88,7 +88,7 @@ export default class GoogleAnalytics extends Component {
 
     this.latestUrl = path;
 
-    GoogleAnalytics.set('page', {
+    GoogleAnalytics.set({
       page: path,
       title: document.title,
       location: document.location,
