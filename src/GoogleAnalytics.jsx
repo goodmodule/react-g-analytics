@@ -58,7 +58,11 @@ export default class GoogleAnalytics extends Component {
   componentDidMount() {
     initGoogleAnalytics(this.props.id, this.props.set);
 
-    this.unlisten = this.context.history.listen(this.onLocationChange);
+    const { history } = this.context;
+    this.unlisten = history.listen(this.onLocationChange);
+
+    // send current pageview
+    this.pageview(history.location);
   }
 
   onLocationChange = (location, action) => {
