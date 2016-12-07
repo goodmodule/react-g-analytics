@@ -39,20 +39,24 @@ export default class GoogleAnalytics extends Component {
     history: PropTypes.object.isRequired,
   };
 
-  static command(...args) {
+  static command(what, options, ...args) {
     if (!window.ga) {
       throw new Error('Google analytics is not initialized');
     }
 
-    return window.ga.apply(window.ga, args);
+    if (typeof options === 'string') {
+      return window.ga(what, options, ...args);
+    }
+
+    return window.ga(what, options);
   }
 
-  static send(what, options) {
-    return GoogleAnalytics.command('send', what, options);
+  static set(...options) {
+    return GoogleAnalytics.command('set', ...options);
   }
 
-  static sendPageview(page, title = page) {
-    return GoogleAnalytics.send('pageview', { page, title });
+  static send(...options) {
+    return GoogleAnalytics.command('send', ...options);
   }
 
   componentDidMount() {
@@ -76,7 +80,7 @@ export default class GoogleAnalytics extends Component {
     }
   }
 
-  pageview(location = {}) {
+  pageview(location) {
     const path = location.pathname + location.search;
     if (this.latestUrl === path) {
       return;
@@ -84,12 +88,18 @@ export default class GoogleAnalytics extends Component {
 
     this.latestUrl = path;
 
-    GoogleAnalytics.sendPageview(path, document.title);
+    GoogleAnalytics.set('page', {
+      page: path,
+      title: document.title,
+      location: document.location,
+    });
+
+    GoogleAnalytics.send({
+      hitType: 'pageview',
+    });
   }
 
   render() {
-    const { children } = this.props;
-
-    return children;
+    return this.props.children;
   }
 }
