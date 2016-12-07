@@ -26,7 +26,8 @@ Star this project on [GitHub][github-url].
 
 ## Notice
 
-Use version 2.x of the react-g-analytics if you want to use it with react-router 2.x
+Use version 0.3.x of the react-g-analytics if you want to use it with react-router 4.x
+Use version 0.2.x of the react-g-analytics if you want to use it with react-router 2.x or 3.x
 
 ## Usage
 
@@ -38,7 +39,6 @@ ReactGAnalytics has parameter ID (use your own ID)
 ```js
 var React = require('react');
 var GoogleAnalytics = require('react-g-analytics');
-var RouteHandler = require('react-router').RouteHandler;
 
 var App = module.exports = React.createClass({
   render: function() {
@@ -137,4 +137,4 @@ Star this project on [GitHub][github-url].
 
 The MIT License (MIT)
 
-Copyright (c) 2016 Zlatko Fedor zlatkofedor@cherrysro.com
+Copyright (c) 2016 Zlatko Fedor zlatkofedor@cherryprojects.com
