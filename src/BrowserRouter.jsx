@@ -13,13 +13,13 @@ export default class GABrowserRouter extends Component {
   };
 
   static childContextTypes = {
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
   };
 
   getChildContext() {
     return {
       history: this.history,
-    }
+    };
   }
 
   componentWillMount() {
@@ -47,13 +47,13 @@ export default class GABrowserRouter extends Component {
       getUserConfirmation,
       keyLength,
       children,
-      ...routerProps,
+      ...rest,
     } = this.props;
 
     return (
       <Router
         history={this.history}
-        {...routerProps}
+        {...rest}
       >
         <GoogleAnalytics id={id} set={set}>
           {children}

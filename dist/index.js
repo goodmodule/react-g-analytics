@@ -1,8 +1,6 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+exports.__esModule = true;
 exports.BrowserRouter = undefined;
 
 var _BrowserRouter2 = require('./BrowserRouter');
