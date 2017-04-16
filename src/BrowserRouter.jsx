@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Router, BrowserRouter } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import GoogleAnalytics from './GoogleAnalytics';
