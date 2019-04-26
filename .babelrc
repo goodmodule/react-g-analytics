@@ -1,12 +1,11 @@
 {
   "presets": [
-    ["es2015", {"loose": true}],
-    "stage-0",
-    "react",
+    ["env", { "modules": false }],
+    "react"
   ],
   "plugins": [
-    "transform-decorators",
-    "transform-class-properties",
-    "add-module-exports"
+    "syntax-dynamic-import",
+    "transform-object-rest-spread",
+    "transform-class-properties"
   ]
 }
