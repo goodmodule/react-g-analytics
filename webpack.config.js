@@ -16,5 +16,8 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.jsx']
+    },
+    output: {
+        libraryTarget: 'umd'
     }
 }
