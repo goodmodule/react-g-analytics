@@ -7,22 +7,22 @@
 [npm-url]: https://www.npmjs.com/react-g-analytics
 [github-url]: https://github.com/seeden/react-g-analytics
 
-## Motivation 动机
+## motivation 动机
 
 Google analytics works with react router
 
-## Install 安装
+## install 安装
 
 ```
 npm install react-g-analytics
 ```
 
-## Features
+## features
 
  * load google analytics scripts (optional - needs an id parameter)
  * send pageview when user will change route of script
 
-# Support us
+###### support us
 
 Star this project on [GitHub][github-url].
 
